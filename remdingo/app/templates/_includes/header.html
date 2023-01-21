@@ -1,0 +1,87 @@
+<style>
+    header {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 5px 20px;
+    }
+
+    header li, a, button {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        color: #edf0f1;
+        text-decoration: none;
+    }
+
+    header button {
+        padding: 9px 25px;
+        background-color: rgba(0,136,169,1);
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease 0s;
+        margin-left: 20px;
+    }
+
+    header button:hover {
+        background-color: rgba(0,136,169,0.8);
+    }
+
+    .nav__links {
+        list-style: none;
+    }
+
+    .nav__links li {
+        display: inline-block;
+        padding: 0 20px;
+    }
+
+    .nav__links li a {
+        transition: all 0.3s ease 0s;
+    }
+
+    .nav__links li a:hover {
+        color: #f9f9c6;
+    }
+
+    .nav__links .sync {
+        color: #51f0ff;
+    }
+
+    .logo_title, .logo_title a {
+        color: #f9f9c6;
+        font-weight: 600;
+        font-size: 26px;
+        font-family: "Courier New", Courier, monospace;
+        cursor: pointer;
+        margin-right: auto;
+    }
+
+    .info {
+        font-size: 15px;
+        font-family: "Courier New", Courier, monospace;
+        color: #cbcbcb;
+    }
+
+    /*
+    .header {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        row-gap: 1em;
+    }
+    */
+</style>
+
+<header>
+    <div class="logo_title">
+        <a class="logo_title" href="/">remdingo</a>
+    </div>
+    <nav>
+        <ul class="nav__links">
+            <li><a href="/examples">tutorial</a></li>
+            <li><a class="sync" href="/sync">sync device</a></li>
+        </ul>
+    </nav>
+    <!--<a class="cta" href="/sync"><button>sync device</button></a>-->
+</header>

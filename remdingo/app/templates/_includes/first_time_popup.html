@@ -1,0 +1,85 @@
+{% block styles %}
+<style>
+    #first_timers {
+        font-family: 'Montserrat', sans-serif;
+        color: #494949;
+        margin-top: 20px;
+        /*position: absolute;*/
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: 60%;
+        background-color: #faf59c;
+        /*height: 100px;*/
+        border-radius: 5px;
+        border: solid 1px #5656d2;
+        filter: drop-shadow(3px 3px 3px #9d9d9d);
+    }
+
+    .pop-up-content {
+        display: flex;
+        flex-wrap: wrap;
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+    .pop-up-text-title {
+        font-weight: bold;
+        text-align: center;
+        width: 100%;
+    }
+
+    .pop-up-text {
+        text-align: center;
+        width: 100%;
+        margin-bottom: 4px;
+        line-height: 1.4;
+    }
+
+    .info-text {
+        color: #494949;
+        font-weight: 600;
+    }
+
+    #first_timers button {
+        padding: 9px 25px;
+        background-color: rgba(0,136,169,1);
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease 0s;
+        margin-left: 20px;
+    }
+
+</style>
+{% endblock %}
+
+<div id="first_timers" style="display: none;">
+    <div class="pop-up-content">
+        <div class="pop-up-text">
+            Hi first time visitor, welcome to remdingo free, anonymous, browser reminders.
+            <br>
+            Please read the <a class="info-text" href="/faq">faq</a> and see the <a class="info-text" href="/examples">tutorial</a> for usage and syncing instructions.
+            <br><br>
+            <button id="close-first-time-popup">close forever</button>
+            <br>
+        </div>
+    </div>
+</div>
+
+<script>
+    let firstTime = getCookie('_remdingo_first_time');
+
+    if(firstTime) {
+        $('#first_timers').hide();
+    } else {
+        $('#first_timers').show();
+
+        $('#close-first-time-popup').click(function() {
+            setCookie('_remdingo_first_time', getUUID(), 1000);
+            $('#first_timers').hide();
+        });
+    }
+
+</script>

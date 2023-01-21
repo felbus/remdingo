@@ -1,0 +1,336 @@
+{% extends "_layouts/default.html" %}
+
+{% block styles %}
+
+<style>
+    .reminder_row {
+        display: flex;
+        justify-content: flex-start;
+        padding: 0 10%;
+        margin-top: 5px;
+        width: 80%;
+    }
+
+    .reminder_row button {
+        background-color: #b2d9ad;
+        color: #383838;
+        font-size: 12px;
+        font-family: 'Montserrat', sans-serif;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease 0s;
+        margin-right: 5px;
+        border: none;
+    }
+
+    .remdingo_input_block {
+        display: flex;
+        justify-content: center;
+        padding: 0 10%;
+        margin-top: 40px;
+    }
+
+    .remdingo_input_block label {
+        font-style: italic;
+        font-size: 200%;
+        font-family: Georgia, serif;
+        min-height: 2.2em;
+        display: inline-block;
+        text-align: right;
+        margin-right: 15px;
+    }
+
+    .remdingo_input_block input {
+        width: 75%;
+        border-radius: 25px;
+        height: 50px;
+        font-size:28px;
+        background-color: #333333;
+        color: #ffffff;
+        border: 1px solid #ffffff;
+        padding-left: 20px;
+        padding-bottom: 5px;
+    }
+
+    .remdingo_input_block ::placeholder {
+        font-style: italic;
+        color: #646464;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .main_response {
+        display: flex;
+        justify-content: center;
+        padding: 0 10%;
+        margin-top: 0;
+        width: 100%;
+    }
+
+    #main_response_text {
+        font-size: 14px;
+        font-family: 'Montserrat', sans-serif;
+        min-height: 2.2em;
+    }
+
+    .main_reminders {
+
+    }
+
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+{% with %}
+{% include "_includes/first_time_popup.html" %}
+{% endwith %}
+
+<div class="remdingo_input_block">
+    <label class="remind_me_in ask">remind me</label>
+    <input id="remdingo_input" placeholder="in 5 mins do something amazing .." type="text" />
+</div>
+
+<div class="main_response">
+    <div id="main_response_text"></div>
+</div>
+
+<div class="main_reminders">
+
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+<script type="text/javascript">
+    /*
+    The method getTimezoneOffset() will subtract your time from GMT and return
+    the number of minutes. So if you pve in GMT-8, it will return 480.
+    To put this into hours, divide by 60. Also, notice that the sign is the
+    opposite of what you need - it's calculating GMT's offset from your time zone,
+    not your time zone's offset from GMT.
+    */
+
+    $( document ).ready(function() {
+        if(customerId) {
+            let favicon = new Favico({
+                type: 'circle',
+                animation: 'none',
+                bgColor: '#ff0000',
+                textColor: '#ff0',
+                position: 'up'
+            });
+
+            let showNotifications = true;
+
+            function check_reminders() {
+                $.ajax({
+                    type: "GET",
+                    url: '/check_reminders?customerId=' + customerId,
+                    success: function (resp) {
+                        //console.log(resp);
+
+                        $(".main_reminders").empty();
+                        //console.log('reminders length: ' + resp.reminders.length);
+
+                        if (resp.reminders.length === 0) {
+                            //console.log('no reminders');
+                            favicon.badge(0);
+                        } else {
+                            //console.log('found reminders');
+                            printReminders(resp, true);
+                            setFavicon(resp);
+                            processNotifications(resp);
+                        }
+                    }
+                });
+            }
+
+            check_reminders();
+            setInterval(check_reminders, 30000);
+
+            $('#remdingo_input').keypress(function (event) {
+                let keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode === 13) {
+                    let message = $('#remdingo_input').val();
+                    //console.log('offset:' + offset);
+
+                    $.ajax({
+                        type: "GET",
+                        url: '/process_reminder?customerId=' + customerId + '&message=' + message + '&offset=' + offset + '&tz=' + tzid,
+                        success: function (resp) {
+                            //console.log(resp);
+
+                            $('#remdingo_input').val('');
+
+                            if (resp.reminders && resp.reminders.length > 0) {
+                                //console.log('found command: showing reminders')
+                                if (resp.message === 'history') {
+                                    printReminders(resp, false);
+                                } else {
+                                    printReminders(resp, true);
+                                }
+                            } else {
+                                if (resp.message.includes("could not save")) {
+                                    $('#main_response_text').addClass("error").text(resp.message).fadeIn('slow').delay(5000).fadeOut('slow');
+                                } else {
+                                    $('#main_response_text').addClass("success").text(resp.message).fadeIn('slow').delay(5000).fadeOut('slow');
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+
+            function printReminders(resp, showButtons) {
+                $(".main_reminders").empty();
+
+                let msg = '';
+
+                $.each(resp.reminders, function (k, v) {
+                    msg = msg +
+                        '<div class="reminder_row">' +
+                        '<span class="reminder_info">' + v.dt + '</span><span class="reminder_info">-</span><span class="reminder_info">' + v.reminder + '</span>' +
+                        '';
+
+                    if (showButtons) {
+                        msg = msg +
+                            '' +
+                            '<button id="done_' + v.reminder_id + '" class="success">Done</button>' +
+                            '<select id="snooze_options" class="error">' +
+                            '<option>Snooze</option>' +
+                            '<option class="snooze_option" id="fivemins_' + v.reminder_id + '" value="5m">5m</option>' +
+                            '<option class="snooze_option" id="15mins_' + v.reminder_id + '" value="15m">15m</option>' +
+                            '<option class="snooze_option" id="30mins_' + v.reminder_id + '" value="30m">30m</option>' +
+                            '<option class="snooze_option" id="1hr_' + v.reminder_id + '" value="1h">1h</option>' +
+                            '<option class="snooze_option" id="3hrs_' + v.reminder_id + '" value="3h">3h</option>' +
+                            '<option class="snooze_option" id="tomorrow_' + v.reminder_id + '" value="Tomorrow">Tomorrow</option>' +
+                            '<option class="snooze_option" id="monday_' + v.reminder_id + '" value="Monday">Monday</option>' +
+                            '<option class="snooze_option" id="nextweek_' + v.reminder_id + '" value="One week">One Week</option>' +
+                            '<option class="snooze_option" id="nextmonth_' + v.reminder_id + '" value="Next month">One Month</option>' +
+                            '</select>' +
+                            '</div>';
+                    } else {
+                        msg = msg + '</div>';
+                    }
+                });
+
+                $(".main_reminders").append(msg);
+
+                function ackReminder(ack) {
+                    $.ajax({
+                        type: "GET",
+                        url: '/ack_reminder?customerId=' + customerId + '&ack=' + ack + '&offset=' + offset + '&tz=' + tzid,
+                        success: function (resp) {
+                            $(ack).empty();
+                            $('#main_response_text').text(resp.message).addClass("success").fadeIn('slow').delay(5000).fadeOut('slow');
+                            check_reminders();
+                        }
+                    });
+                }
+
+                $(':button').click(function (e) {
+                    ackReminder(e.target.id);
+                });
+
+                $('select').change(function (e) {
+                    let id = $(this).children(":selected").attr("id");
+                    //console.log(id);
+                    ackReminder(id);
+                });
+            }
+
+            function setFavicon(resp) {
+                let num = resp.reminders.length;
+                favicon.badge(num);
+            }
+
+            function processNotifications(resp) {
+                let num = resp.reminders.length;
+                let title = "remdingo";
+                let icon = 'https://remdingo.com/static/images/favicon.ico'
+
+                let body = "You have " + num + " unread notifications";
+
+                if (num === 1) {
+                    body = "You have " + num + " unread notification";
+                }
+
+                if (showNotifications) {
+                    let notification = new Notification(title, {body: body, icon: icon});
+
+                    notification.onclick = () => {
+                        notification.close();
+                        window.parent.focus();
+                    }
+
+                    notification.onclose = () => {
+                        showNotifications = false;
+                        //console.log('notifications closed');
+                    }
+                }
+            }
+
+            let permission = Notification.permission;
+
+            if (permission === "granted") {
+                //console.log('notifications granted - show notification');
+
+            } else if (permission === "default") {
+                //console.log('notifications default - request perms then show');
+                //requestAndShowPermission();
+            } else {
+                //console.log('notifications denied');
+                //alert("Use normal alert");
+            }
+
+            askNotificationPermission();
+
+            function checkNotificationPromise() {
+                try {
+                    Notification.requestPermission().then();
+                } catch (e) {
+                    return false;
+                }
+
+                return true;
+            }
+
+            function askNotificationPermission() {
+                // function to actually ask the permissions
+                function handlePermission(permission) {
+                    // set the button to shown or hidden, depending on what the user answers
+                    if (Notification.permission === 'denied' || Notification.permission === 'default') {
+                        //notificationBtn.style.display = 'block';
+                    } else {
+                        // notificationBtn.style.display = 'none';
+                    }
+                }
+
+                // Let's check if the browser supports notifications
+                if (!('Notification' in window)) {
+                    //console.log("This browser does not support notifications.");
+                } else {
+                    if (checkNotificationPromise()) {
+                        //console.log("requesting perms");
+                        Notification.requestPermission()
+                            .then((permission) => {
+                                handlePermission(permission);
+                            })
+                    } else {
+                        Notification.requestPermission(function (permission) {
+                            handlePermission(permission);
+                        });
+                    }
+                }
+            }
+        } else {
+            //console.log('this app wil not work without cookies enabled')
+        }
+    });
+</script>
+
+{% endblock %}

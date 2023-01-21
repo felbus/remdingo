@@ -1,0 +1,41 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
+    outline: 0;
+}
+
+body {
+    background-color: #24252a;
+    color: lightgrey;
+}
+
+/*
+button {
+    margin: 3px;
+    border-radius: 5px;
+    border-width: 0px;
+    background-color: #30799B;
+    color: white;
+    cursor: pointer;
+}
+*/
+
+.main_content {
+    margin-top: 5px;
+}
+
+
+.reminder_info {
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+.error {
+    color: #d57676;
+}
+
+.success {
+    color: #b2d9ad;
+}

@@ -1,0 +1,38 @@
+<style>
+    .location_box {
+        display: flex;
+        justify-content: flex-start;
+        padding: 0 10px;
+        color: white;
+        font-size: 15px;
+        font-family: "Courier New", Courier, monospace;
+    }
+</style>
+
+<div class="location_box">
+    <div id="main_date_time"></div>
+</div>
+
+<script type="text/javascript">
+    const offset = new Date().getTimezoneOffset() * -1;
+    const tzid = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    showDateTime();
+
+    function showDateTime() {
+        //let tzDt = tzid + ' (UTC + ' + offset / 60 + ')';
+        let now = new Date();
+
+        let display_dt = now.toLocaleString();
+        let display_region = tzid;
+
+        //console.log(display_dt);
+
+        $('#main_date_time').text(display_dt + ' ' + display_region).addClass('location_box');
+        //$('#main_region').text(display_region).addClass('location_box');
+    }
+
+    let showDateTimeTimer = setInterval(function() {
+        showDateTime();
+    }, 60 * 1000);
+</script>

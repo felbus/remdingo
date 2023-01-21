@@ -1,0 +1,9 @@
+.dockerignore
+.vscode
+.idea
+.readmes
+*.pyc
+*.pyo
+*.pyd
+__pycache__
+.pytest_cache
