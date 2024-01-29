@@ -8,7 +8,7 @@ class Config:
     docker = os.environ.get("REMDINGO_DOCKER")
 
     if environment == docker == "1":
-        DB_PORT = '5435'
+        DB_PORT = '5432'
         DB_HOST = "postgres"
     else:
         DB_PORT = '5435'

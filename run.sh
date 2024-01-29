@@ -8,11 +8,15 @@ if [[ $py != "(3, 11, 1, 'final', 0)" ]]; then
 fi
 
 function remove_remdingo_docker() {
-  docker stop remdingo-postgres 
+  docker stop remdingo-postgres
+  docker stop remdingo-app
 
   sleep 5;
 
   docker rm remdingo-postgres
+  docker rm remdingo-app
+  docker rmi remdingo-app
+  docker rmi remdingo-postgres
   
   sleep 3;
 }
@@ -37,8 +41,20 @@ function run_compose() {
   sleep 5;
 }
 
+function remdingo_postgres_schema() {
+  cd remdingo/app || exit
+
+  echo ''
+  echo '*** postgres schema ***'
+  echo ''
+  for i in {1..5}; do flask resetdb && break || sleep 5; done
+
+  cd ../..
+}
+
 remove_remdingo_docker
 create_remdingo_volumes
 clean_remdingo_volumes
 run_compose
+remdingo_postgres_schema
 

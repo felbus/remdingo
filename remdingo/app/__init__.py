@@ -46,6 +46,14 @@ def create_app():
     def page_not_found(_):
         return render_template("errors/404.html"), 404
 
+    @app.errorhandler(Exception)
+    def handle_error(e):
+        print(e)
+        return render_template(
+            "errors/exception.html",
+            error=e,
+        ), 500
+
     if not app.debug:
         @app.errorhandler(Exception)
         def handle_error(e):

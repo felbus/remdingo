@@ -1,4 +1,5 @@
 from typing import List
+import traceback
 from datetime import date, time
 import re
 import pytz
@@ -579,6 +580,8 @@ class MessageProcessor:
                 if message_str:
                     return message_str
                 else:
-                    return f'could not save the reminder: "{message}"'
+                    return f'woops could not save the reminder: "{message}"'
         except Exception as e:
-            return f'could not save the reminder: "{message}"'
+            print(traceback.format_exc())
+            return traceback.format_exc()
+
