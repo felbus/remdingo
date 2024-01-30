@@ -6,21 +6,9 @@
     .reminder_row {
         display: flex;
         justify-content: flex-start;
-        padding: 0 10%;
+        padding: 0 2%;
         margin-top: 5px;
-        width: 80%;
-    }
-
-    .reminder_row button {
-        background-color: #b2d9ad;
-        color: #383838;
-        font-size: 12px;
-        font-family: 'Montserrat', sans-serif;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: all 0.3s ease 0s;
-        margin-right: 5px;
-        border: none;
+        width: 100%;
     }
 
     .remdingo_input_block {
@@ -199,7 +187,7 @@
                     if (showButtons) {
                         msg = msg +
                             '' +
-                            '<button id="done_' + v.reminder_id + '" class="success">Done</button>' +
+                            '<button id="done_' + v.reminder_id + '" class="done">Done</button>' +
                             '<select id="snooze_options" class="error">' +
                             '<option>Snooze</option>' +
                             '<option class="snooze_option" id="fivemins_' + v.reminder_id + '" value="5m">5m</option>' +

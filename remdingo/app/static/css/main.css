@@ -11,17 +11,6 @@ body {
     color: lightgrey;
 }
 
-/*
-button {
-    margin: 3px;
-    border-radius: 5px;
-    border-width: 0px;
-    background-color: #30799B;
-    color: white;
-    cursor: pointer;
-}
-*/
-
 .main_content {
     margin-top: 5px;
 }
@@ -29,11 +18,31 @@ button {
 
 .reminder_info {
     margin-right: 5px;
-    margin-top: 5px;
 }
 
 .error {
     color: #d57676;
+}
+
+button {
+    background-color: #b2d9ad;
+    color: #383838;
+    height: 20px;
+    line-height: 1;
+    font-size: 12px !important;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    margin-right: 10px;
+    border: none;
+}
+
+.done {
+    border: 1px solid #00960e !important;
+    background-color: #01650b !important;
+    border-radius: 4px !important;
+    color: #ffffff;
 }
 
 .success {
