@@ -1,0 +1,110 @@
+{% extends "_layouts/default.html" %}
+
+{% block content %}
+    <style>
+        .sync-form {
+            display: flex;
+            margin-top: 50px;
+            justify-content: center;
+        }
+
+        .sync-form-content {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .sync-form-content input {
+            width: 50%;
+            border-radius: 25px;
+            height: 50px;
+            font-size:28px;
+            background-color: #333333;
+            color: #ffffff;
+            border: 1px solid #ffffff;
+            padding-left: 20px;
+            padding-bottom: 5px;
+        }
+
+        .sync-form-content ::placeholder {
+            font-style: italic;
+            color: #646464;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            margin-left: 25px;
+            text-align: center;
+            vertical-align: center;
+        }
+
+        .sync-form-content button {
+            padding: 9px 25px;
+            background-color: rgba(0,136,169,1);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease 0s;
+            margin-left: 20px;
+        }
+
+        #msg {
+            font-size: 20px;
+            margin-left: 18px;
+        }
+
+        .error {
+            color: #d57676;
+        }
+
+        .success {
+            color: #b2d9ad;
+        }
+    </style>
+
+
+    <div class="sync-form">
+        {% with %}
+            {% include "_includes/customer_id_box.html" %}
+        {% endwith %}
+    </div>
+
+    <div class="sync-form-content">
+        <div>sync devices</div>
+    </div>
+
+    <div class="sync-form-content">
+        <input id="remdingo_sync_input" placeholder="paste your user id from another device here" type="text" />
+    </div>
+
+    <div class="sync-form-content">
+        <button id="device_sync">sync</button>
+    </div>
+
+    <div class="sync-form-content">
+        <div id="msg"></div>
+    </div>
+
+    <script>
+        $('#customer_id_box').click(function() {
+            navigator.clipboard.writeText(customerId);
+            $('#msg').addClass("success").text('your id has been saved to your clipboard').fadeIn('slow').delay(5000).fadeOut('slow');
+        });
+
+        $('#device_sync').click(function() {
+            let sync_id = $('#remdingo_sync_input').val();
+
+            //console.log('sync_id :' + sync_id);
+            //console.log(sync_id.length);
+
+            if(sync_id.length !== 36) {
+                $('#remdingo_sync_input').val('');
+                $('#msg').text('invalid id').removeClass('success').addClass('error').fadeIn('slow').delay(5000).fadeOut('slow');
+            } else {
+                $('#remdingo_sync_input').val('');
+                setCookie('_remdingo', sync_id, 7);
+                $('#msg').text('successfully synced').removeClass('error').addClass('success').fadeIn('slow').delay(5000).fadeOut('slow');
+            }
+        });
+    </script>
+
+{% endblock %}

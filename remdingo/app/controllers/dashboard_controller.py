@@ -7,6 +7,12 @@ from remdingo.storage.reminders_repo import RemindersRepo
 
 dashboard_bp = Blueprint("dashboard", __name__)
 
+@dashboard_bp.route("/sync", methods=["GET", "POST"])
+def sync():
+    return render_template(
+        "sync.html"
+    )
+
 
 @dashboard_bp.route("/")
 def index():
