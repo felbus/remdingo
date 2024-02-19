@@ -18,8 +18,9 @@ const setCookie = (name, value, days=7) => {
 
     if (days) {
         const expiry = new Date();
-        expiry.setDate(expiry.getDate() + days);
+        expiry.setDate(expiry.getDate() + (days * 365));
         cookie += `; expires=${expiry.toUTCString()}`;
+        //console.log(expiry.toUTCString());
     }
 
     cookie += `; path=/`;

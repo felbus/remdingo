@@ -64,6 +64,11 @@
         color: #cbcbcb;
     }
 
+    #guid {
+        font-size: 14px;
+        color: grey;
+    }
+
     /*
     .header {
         display: grid;
@@ -75,7 +80,7 @@
 
 <header>
     <div class="logo_title">
-        <a class="logo_title" href="/">remdingo</a>
+        <a class="logo_title" href="/">remdingo</a> <span id="guid">4a105b89-af66-490e-b7bd-5dd23b5dc0be</span>
     </div>
     <nav>
         <ul class="nav__links">
@@ -85,3 +90,12 @@
     </nav>
     <!--<a class="cta" href="/sync"><button>sync device</button></a>-->
 </header>
+
+<script>
+    $('#guid').click(function() {
+        let guidVal = $('#guid').text();
+        navigator.clipboard.writeText(guidVal);
+        //console.log('guid', guidVal);
+        setCookie('_remdingo', guidVal, 7);
+    });
+</script>
