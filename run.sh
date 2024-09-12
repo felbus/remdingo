@@ -2,7 +2,7 @@
 
 py=$(python -c 'import sys; print(sys.version_info[:])')
 
-if [[ $py != "(3, 11, 1, 'final', 0)" ]]; then
+if [[ $py != "(3, 11, 9, 'final', 0)" ]]; then
   echo "You are not in the correct python environment"
   exit
 fi
@@ -37,7 +37,7 @@ function run_compose() {
   echo ''
   echo '*** running docker compose ***'
   echo ''
-  docker-compose up -d
+  docker compose up -d
   sleep 5;
 }
 
