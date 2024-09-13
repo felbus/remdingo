@@ -91,6 +91,10 @@ flask resetdb
 python -m remdingo.app.wsgi
 ```
 
-
-
+### backup database
+```
+docker network create mynetwork
+docker network connect mynetwork remdingo-postgres
+docker run --rm --network mynetwork -e PGPASSWORD=remdingo5435434 -v $PWD/db_backups:/backups postgres:16.2 pg_dump -h remdingo-postgres -p 5432 -U postgres -Ft -f /backups/remdingo_db_$(date +%Y-%m-%d).tar remdingodb
+```
 
