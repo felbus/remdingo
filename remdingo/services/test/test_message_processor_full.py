@@ -405,3 +405,15 @@ class TestMessageProcessor(unittest.TestCase):
         self.assertEqual(True, success)
         self.assertEqual(result_dt, reminder_date_utc)
         self.assertEqual("take the dog out", message_str)
+
+    def test_can_process_message_tomorrow_with_comma(self):
+        """Test that 'Tomorrow,' with a comma is handled correctly."""
+        offset = 0
+        message = "Tomorrow, remind me about Ricky's augment survey."
+        base_dt = DatetimeUtils.create_datetime(2021, 7, 17, 9, 8)
+        result_dt = DatetimeUtils.create_datetime(2021, 7, 18, 9, 0)
+        reminder_date_utc, reminder_date_user, message_str, success = MessageProcessor.process_message(message, offset, base_dt=base_dt)
+
+        self.assertEqual(True, success)
+        self.assertEqual(result_dt, reminder_date_utc)
+        self.assertEqual("remind me about ricky's augment survey", message_str)

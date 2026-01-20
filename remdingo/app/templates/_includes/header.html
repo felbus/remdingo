@@ -31,6 +31,26 @@
         background-color: #8bc9de;
     }
 
+    .theme-toggle {
+        background: none !important;
+        border: none;
+        cursor: pointer;
+        padding: 8px 12px;
+        margin-left: 16px;
+        font-size: 18px;
+        transition: transform 0.3s ease, color 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #9b6b9e;
+    }
+
+    .theme-toggle:hover {
+        background: none !important;
+        transform: scale(1.15);
+        color: #d4a5d9;
+    }
+
     .nav__links {
         list-style: none;
     }
@@ -84,6 +104,9 @@
             <li><a class="sync" href="/sync">sync device</a></li>
         </ul>
     </nav>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle dark mode">
+        <i class="theme-icon fas fa-moon"></i>
+    </button>
 </header>
 
 <script>

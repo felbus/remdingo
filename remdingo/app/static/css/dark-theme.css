@@ -1,0 +1,223 @@
+/* Cyberpunk Dark Theme - Neon pastels on dark blue */
+
+body.dark-theme {
+    background-color: #0a0e1a;
+    color: #e0d4f7;
+}
+
+/* Header */
+body.dark-theme header {
+    background-color: #0d1224;
+    border-bottom: 1px solid #1e2a4a;
+}
+
+body.dark-theme header li,
+body.dark-theme header a {
+    color: #b8c4e0;
+}
+
+body.dark-theme header a:hover {
+    color: #f0a6ca;
+}
+
+body.dark-theme header button {
+    background-color: #1e3a5f;
+    color: #7fdbda;
+}
+
+body.dark-theme header button:hover {
+    background-color: #2a4a7f;
+}
+
+body.dark-theme .logo_title,
+body.dark-theme .logo_title a {
+    color: #7fdbda;
+}
+
+body.dark-theme #guid {
+    color: #4a5568;
+}
+
+body.dark-theme .nav__links .sync {
+    color: #f0a6ca;
+}
+
+/* Location/datetime box */
+body.dark-theme .location_box {
+    background-color: #0d1224;
+    border-bottom: 1px solid #1e2a4a;
+    color: #8b9dc3;
+}
+
+/* Main input */
+body.dark-theme .remdingo_input_block input {
+    background-color: #111827;
+    color: #e0d4f7;
+    border: 2px solid #2d4a6f;
+}
+
+body.dark-theme .remdingo_input_block input:focus {
+    border-color: #f0a6ca;
+    box-shadow: 0 0 0 3px rgba(240, 166, 202, 0.2);
+}
+
+body.dark-theme .remdingo_input_block input::placeholder {
+    color: #5a6a8a;
+}
+
+body.dark-theme .remdingo_input_block label {
+    color: #b8c4e0;
+}
+
+/* Response text */
+body.dark-theme #main_response_text {
+    color: #b8c4e0;
+}
+
+/* Reminder rows */
+body.dark-theme .reminder_row {
+    background-color: #111827;
+    border-left: 4px solid #7fdbda;
+}
+
+body.dark-theme .reminder_info {
+    color: #e0d4f7;
+}
+
+/* Buttons */
+body.dark-theme button {
+    background-color: #1e4a3d;
+    color: #a8f0dc;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme button:hover {
+    background-color: #2a5f4f;
+    box-shadow: 0 2px 6px rgba(127, 219, 218, 0.2);
+}
+
+body.dark-theme .btn-done {
+    background-color: #1e4a3d;
+    color: #a8f0dc;
+}
+
+body.dark-theme .btn-done:hover {
+    background-color: #2a5f4f;
+}
+
+body.dark-theme .btn-snooze {
+    background-color: #1e3a5f;
+    color: #7fdbda;
+}
+
+body.dark-theme .btn-snooze:hover {
+    background-color: #2a4a7f;
+}
+
+/* Snooze dropdown */
+body.dark-theme .snooze-dropdown {
+    background-color: #111827;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-theme .snooze_option {
+    color: #b8c4e0;
+}
+
+body.dark-theme .snooze_option:hover {
+    background-color: #1e2a4a;
+    color: #f0a6ca;
+}
+
+/* Select dropdowns */
+body.dark-theme select {
+    background-color: #111827;
+    color: #b8c4e0;
+    border: 1px solid #2d4a6f;
+}
+
+body.dark-theme select:hover {
+    border-color: #f0a6ca;
+}
+
+body.dark-theme select:focus {
+    border-color: #f0a6ca;
+    box-shadow: 0 0 0 3px rgba(240, 166, 202, 0.2);
+}
+
+/* Success/Error states */
+body.dark-theme .success {
+    color: #a8f0dc;
+}
+
+body.dark-theme .error {
+    color: #f0a6a6;
+}
+
+/* Customer ID box */
+body.dark-theme .customer_id_box,
+body.dark-theme #customer_id_box {
+    background-color: #1e3a5f;
+    color: #7fdbda;
+}
+
+body.dark-theme .customer_id_box:hover,
+body.dark-theme #customer_id_box:hover {
+    background-color: #2a4a7f;
+}
+
+/* Sync page inputs */
+body.dark-theme .sync-form-content {
+    color: #b8c4e0;
+}
+
+body.dark-theme .sync-form-content input {
+    background-color: #111827;
+    color: #e0d4f7;
+    border: 2px solid #2d4a6f;
+}
+
+body.dark-theme .sync-form-content input:focus {
+    border-color: #f0a6ca;
+    box-shadow: 0 0 0 3px rgba(240, 166, 202, 0.2);
+}
+
+body.dark-theme .sync-form-content input::placeholder {
+    color: #5a6a8a;
+}
+
+/* First time popup */
+body.dark-theme #first_timers .bg-white {
+    background-color: #111827 !important;
+}
+
+body.dark-theme #first_timers .text-text-primary {
+    color: #e0d4f7 !important;
+}
+
+body.dark-theme #first_timers .text-text-secondary {
+    color: #8b9dc3 !important;
+}
+
+/* Examples page */
+body.dark-theme .examples_h3 {
+    color: #7fdbda;
+    border-bottom: 2px solid #2d4a6f;
+}
+
+body.dark-theme .example_text {
+    color: #b8c4e0;
+    background-color: #111827;
+    border-left: 4px solid #f0a6ca;
+}
+
+/* Theme toggle button in dark mode */
+body.dark-theme .theme-toggle {
+    background: none !important;
+    color: #7fdbda;
+}
+
+body.dark-theme .theme-toggle:hover {
+    color: #a8f0dc;
+}
+
