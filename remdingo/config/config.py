@@ -5,14 +5,13 @@ from datetime import timedelta
 # noinspection SpellCheckingInspection
 class Config:
     environment = os.environ.get("REMDINGO_ENVIRONMENT")
-    docker = os.environ.get("REMDINGO_DOCKER")
 
-    if environment == docker == "1":
-        DB_PORT = '5432'
-        DB_HOST = "postgres"
+    if environment == "production":
+        DB_PORT = '5435'
+        DB_HOST = "10.192.11.110"
     else:
         DB_PORT = '5435'
-        DB_HOST = "127.0.0.1"
+        DB_HOST = "3.253.18.207"
 
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = "1"
 

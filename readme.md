@@ -98,3 +98,22 @@ docker network connect mynetwork remdingo-postgres
 docker run --rm --network mynetwork -e PGPASSWORD=remdingo5435434 -v $PWD/db_backups:/backups postgres:16.2 pg_dump -h remdingo-postgres -p 5432 -U postgres -Ft -f /backups/remdingo_db_$(date +%Y-%m-%d).tar remdingodb
 ```
 
+# Docker
+
+### run app locally in Docker (connects to external database)
+```
+docker build -t remdingo-app -f Dockerfile.app .
+docker run -p 5814:5814 remdingo-app
+```
+App will be running at http://localhost:5814/
+
+### build and push to Docker Hub
+```
+./remdingo_push.sh --app
+```
+
+### deploy on server (run on the server)
+```
+./remdingo_update.sh
+```
+
