@@ -392,3 +392,15 @@ class TestMessageProcessor(unittest.TestCase):
 
         self.assertEqual(True, success)
         self.assertEqual(result_dt, reminder_date_user)
+
+    def test_can_process_message_with_comma_after_time_period(self):
+        """Test that punctuation after time periods (e.g., 'minutes,') is handled correctly."""
+        offset = 0
+        message = "in five minutes, take the dog out"
+        base_dt = DatetimeUtils.create_datetime(2021, 7, 17, 9, 8)
+        result_dt = DatetimeUtils.create_datetime(2021, 7, 17, 9, 13)
+        reminder_date_utc, reminder_date_user, message_str, success = MessageProcessor.process_message(message, offset, base_dt=base_dt)
+
+        self.assertEqual(True, success)
+        self.assertEqual(result_dt, reminder_date_utc)
+        self.assertEqual("take the dog out", message_str)

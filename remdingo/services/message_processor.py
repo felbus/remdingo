@@ -28,6 +28,13 @@ every week on tuesday at 1015 complete weekly report</li>
 
 
 class MessageProcessor:
+    PUNCTUATION_TO_STRIP = ',.!?;:'
+
+    @staticmethod
+    def strip_punctuation(text: str) -> str:
+        """Remove trailing punctuation from a string."""
+        return text.rstrip(MessageProcessor.PUNCTUATION_TO_STRIP)
+
     @staticmethod
     def is_int(s: str):
         return s.isdigit()
@@ -330,7 +337,7 @@ class MessageProcessor:
     @staticmethod
     def process_message(message: str, offset: int, tz="", base_dt=None):
         message = message.lower()
-        message_components = message.split(' ')
+        message_components = [MessageProcessor.strip_punctuation(word) for word in message.split(' ')]
 
         # time periods are if someone said hours, hrs, mins, weeks, etc.. not actual times like 09:15
         number_of_time_periods = MessageProcessor.count_number_of_time_periods(message_components)
