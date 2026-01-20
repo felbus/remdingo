@@ -198,8 +198,9 @@ class TestMessageProcessor(unittest.TestCase):
     def test_can_process_message_5(self):
         offset = 0
         message = "at 17:37 on 5th oct 2022 do a poo"
+        base_dt = DatetimeUtils.create_datetime(2022, 9, 1, 10, 0)
         result_dt = DatetimeUtils.create_datetime(2022, 10, 5, 17, 37)
-        reminder_date_utc, reminder_date_user, message_str, success = MessageProcessor.process_message(message, offset)
+        reminder_date_utc, reminder_date_user, message_str, success = MessageProcessor.process_message(message, offset, base_dt=base_dt)
 
         self.assertEqual(success, True)
         self.assertEqual(result_dt, reminder_date_utc)
