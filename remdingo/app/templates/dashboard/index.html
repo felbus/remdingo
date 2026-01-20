@@ -7,14 +7,18 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        padding: 8px 24px;
-        margin-top: 4px;
-        width: 100%;
+        padding: 12px 20px;
+        margin-top: 8px;
+        margin-bottom: 8px;
         background-color: #f9fafb;
-        border-radius: 8px;
-        margin-left: 24px;
-        margin-right: 24px;
-        max-width: calc(100% - 48px);
+        border-radius: 10px;
+        border-left: 4px solid #a8d8ea;
+        gap: 8px;
+    }
+
+    .reminder_row .reminder_info:last-of-type {
+        flex-grow: 1;
+        margin-right: 16px;
     }
 
     .remdingo_input_block {
@@ -78,6 +82,90 @@
     .main_reminders {
         padding: 0 24px;
         margin-top: 16px;
+    }
+
+    .reminder_actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: auto;
+    }
+
+    .btn-done {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: none;
+        background-color: #b5e8c3;
+        color: #166534;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        padding: 0;
+        font-size: 14px;
+    }
+
+    .btn-done:hover {
+        background-color: #86efac;
+        transform: scale(1.1);
+    }
+
+    .snooze-wrapper {
+        position: relative;
+    }
+
+    .btn-snooze {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: none;
+        background-color: #a8d8ea;
+        color: #1e40af;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        padding: 0;
+        font-size: 14px;
+    }
+
+    .btn-snooze:hover {
+        background-color: #7dd3fc;
+        transform: scale(1.1);
+    }
+
+    .snooze-dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 8px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        min-width: 120px;
+        z-index: 100;
+        overflow: hidden;
+    }
+
+    .snooze-dropdown.show {
+        display: block;
+    }
+
+    .snooze_option {
+        padding: 10px 16px;
+        cursor: pointer;
+        font-size: 14px;
+        color: #374151;
+        transition: background-color 0.15s ease;
+    }
+
+    .snooze_option:hover {
+        background-color: #f3e8ff;
+        color: #7c3aed;
     }
 </style>
 
@@ -199,20 +287,23 @@
 
                     if (showButtons) {
                         msg = msg +
-                            '' +
-                            '<button id="done_' + v.reminder_id + '" class="done">Done</button>' +
-                            '<select id="snooze_options" class="error">' +
-                            '<option>Snooze</option>' +
-                            '<option class="snooze_option" id="fivemins_' + v.reminder_id + '" value="5m">5m</option>' +
-                            '<option class="snooze_option" id="15mins_' + v.reminder_id + '" value="15m">15m</option>' +
-                            '<option class="snooze_option" id="30mins_' + v.reminder_id + '" value="30m">30m</option>' +
-                            '<option class="snooze_option" id="1hr_' + v.reminder_id + '" value="1h">1h</option>' +
-                            '<option class="snooze_option" id="3hrs_' + v.reminder_id + '" value="3h">3h</option>' +
-                            '<option class="snooze_option" id="tomorrow_' + v.reminder_id + '" value="Tomorrow">Tomorrow</option>' +
-                            '<option class="snooze_option" id="monday_' + v.reminder_id + '" value="Monday">Monday</option>' +
-                            '<option class="snooze_option" id="nextweek_' + v.reminder_id + '" value="One week">One Week</option>' +
-                            '<option class="snooze_option" id="nextmonth_' + v.reminder_id + '" value="Next month">One Month</option>' +
-                            '</select>' +
+                            '<div class="reminder_actions">' +
+                            '<button id="done_' + v.reminder_id + '" class="btn-done" title="Mark as done"><i class="fas fa-check"></i></button>' +
+                            '<div class="snooze-wrapper">' +
+                            '<button class="btn-snooze" title="Snooze"><i class="fas fa-clock"></i></button>' +
+                            '<div class="snooze-dropdown">' +
+                            '<div class="snooze_option" id="fivemins_' + v.reminder_id + '">5 mins</div>' +
+                            '<div class="snooze_option" id="15mins_' + v.reminder_id + '">15 mins</div>' +
+                            '<div class="snooze_option" id="30mins_' + v.reminder_id + '">30 mins</div>' +
+                            '<div class="snooze_option" id="1hr_' + v.reminder_id + '">1 hour</div>' +
+                            '<div class="snooze_option" id="3hrs_' + v.reminder_id + '">3 hours</div>' +
+                            '<div class="snooze_option" id="tomorrow_' + v.reminder_id + '">Tomorrow</div>' +
+                            '<div class="snooze_option" id="monday_' + v.reminder_id + '">Monday</div>' +
+                            '<div class="snooze_option" id="nextweek_' + v.reminder_id + '">1 Week</div>' +
+                            '<div class="snooze_option" id="nextmonth_' + v.reminder_id + '">1 Month</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
                             '</div>';
                     } else {
                         msg = msg + '</div>';
@@ -233,14 +324,32 @@
                     });
                 }
 
-                $(':button').click(function (e) {
-                    ackReminder(e.target.id);
+                // Done button click
+                $('.btn-done').click(function (e) {
+                    e.stopPropagation();
+                    let btnId = $(this).attr('id');
+                    ackReminder(btnId);
                 });
 
-                $('select').change(function (e) {
-                    let id = $(this).children(":selected").attr("id");
-                    //console.log(id);
+                // Snooze button toggle dropdown
+                $('.btn-snooze').click(function (e) {
+                    e.stopPropagation();
+                    let dropdown = $(this).siblings('.snooze-dropdown');
+                    $('.snooze-dropdown').not(dropdown).removeClass('show');
+                    dropdown.toggleClass('show');
+                });
+
+                // Snooze option click
+                $('.snooze_option').click(function (e) {
+                    e.stopPropagation();
+                    let id = $(this).attr('id');
                     ackReminder(id);
+                    $(this).parent('.snooze-dropdown').removeClass('show');
+                });
+
+                // Close dropdown when clicking outside
+                $(document).click(function() {
+                    $('.snooze-dropdown').removeClass('show');
                 });
             }
 
