@@ -107,6 +107,14 @@ docker run -p 5814:5814 remdingo-app
 ```
 App will be running at http://localhost:5814/
 
+### rebuild and update local Docker container (after code changes)
+```
+docker stop remdingo-app
+docker rm remdingo-app
+docker build -t remdingo-app -f Dockerfile.app .
+docker run -p 5814:5814 --name remdingo-app remdingo-app
+```
+
 ### build and push to Docker Hub
 ```
 ./remdingo_push.sh --app
