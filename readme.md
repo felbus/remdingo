@@ -86,7 +86,7 @@ flask resetdb
 
 ### wait for a minute for postgres to start
 
-### run app (will be running on http://localhost:5010/)
+### run app (will be running on http://localhost:5814/)
 ```
 python -m remdingo.app.wsgi
 ```
