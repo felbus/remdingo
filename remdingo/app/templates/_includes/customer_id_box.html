@@ -2,14 +2,21 @@
     .customer_id_box, #customer_id_box {
         display: flex;
         justify-content: flex-start;
-        padding: 0 10px;
-        color: #ffe576;
-        font-size: 18px;
+        padding: 8px 16px;
+        color: #374151;
+        font-size: 16px;
         font-family: 'Montserrat', sans-serif;
         cursor: pointer;
+        background-color: #a8d8ea;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+    }
+
+    .customer_id_box:hover, #customer_id_box:hover {
+        background-color: #8bc9de;
     }
 </style>
 
 <div class="customer_id_box">
-    <div id="customer_id_box">click here to save your current id to your clipboard</div>
+    <div id="customer_id_box">📋 Click here to copy your ID to clipboard</div>
 </div>

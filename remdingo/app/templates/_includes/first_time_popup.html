@@ -1,69 +1,21 @@
-{% block styles %}
-<style>
-    #first_timers {
-        font-family: 'Montserrat', sans-serif;
-        color: #494949;
-        margin-top: 20px;
-        /*position: absolute;*/
-        left: 0;
-        right: 0;
-        margin-left: auto;
-        margin-right: auto;
-        width: 60%;
-        background-color: #faf59c;
-        /*height: 100px;*/
-        border-radius: 5px;
-        border: solid 1px #5656d2;
-        filter: drop-shadow(3px 3px 3px #9d9d9d);
-    }
-
-    .pop-up-content {
-        display: flex;
-        flex-wrap: wrap;
-        padding-top: 12px;
-        padding-bottom: 12px;
-    }
-
-    .pop-up-text-title {
-        font-weight: bold;
-        text-align: center;
-        width: 100%;
-    }
-
-    .pop-up-text {
-        text-align: center;
-        width: 100%;
-        margin-bottom: 4px;
-        line-height: 1.4;
-    }
-
-    .info-text {
-        color: #494949;
-        font-weight: 600;
-    }
-
-    #first_timers button {
-        padding: 9px 25px;
-        background-color: rgba(0,136,169,1);
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: all 0.3s ease 0s;
-        margin-left: 20px;
-    }
-
-</style>
-{% endblock %}
-
-<div id="first_timers" style="display: none;">
-    <div class="pop-up-content">
-        <div class="pop-up-text">
-            Hi first time visitor, welcome to remdingo free, anonymous, browser reminders.
-            <br>
-            Please read the <a class="info-text" href="/faq">faq</a> and see the <a class="info-text" href="/examples">tutorial</a> for usage and syncing instructions.
-            <br><br>
-            <button id="close-first-time-popup">close forever</button>
-            <br>
+<div id="first_timers" style="display: none;" class="mx-auto mt-6 mb-4 w-11/12 max-w-2xl">
+    <div class="bg-gradient-to-r from-pastel-blue via-pastel-purple to-pastel-green p-0.5 rounded-xl shadow-lg">
+        <div class="bg-white rounded-xl px-6 py-5">
+            <div class="text-center">
+                <h3 class="text-lg font-semibold text-text-primary mb-2">
+                    Welcome to Remdingo!
+                </h3>
+                <p class="text-text-secondary text-sm leading-relaxed mb-4">
+                    Free, anonymous, browser-based reminders. No sign-up required.
+                    <br class="hidden sm:block">
+                    Check out the <a href="/faq" class="text-text-primary font-semibold hover:text-pastel-purple transition-colors underline decoration-pastel-purple decoration-2 underline-offset-2">FAQ</a>
+                    and <a href="/examples" class="text-text-primary font-semibold hover:text-pastel-purple transition-colors underline decoration-pastel-purple decoration-2 underline-offset-2">tutorial</a> to get started.
+                </p>
+                <button id="close-first-time-popup"
+                    class="inline-flex items-center px-5 py-2.5 bg-pastel-green hover:bg-opacity-80 text-text-primary font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow">
+                    Got it, thanks!
+                </button>
+            </div>
         </div>
     </div>
 </div>

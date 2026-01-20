@@ -3,29 +3,32 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        padding: 5px 20px;
+        padding: 12px 24px;
+        border-bottom: 1px solid #e5e7eb;
+        background-color: #ffffff;
     }
 
-    header li, a, button {
+    header li, header a {
         font-family: 'Montserrat', sans-serif;
-        font-weight: 500;
+        font-weight: 600;
         font-size: 16px;
-        color: #edf0f1;
+        color: #1f2937;
         text-decoration: none;
     }
 
     header button {
-        padding: 9px 25px;
-        background-color: rgba(0,136,169,1);
+        padding: 10px 24px;
+        background-color: #a8d8ea;
         border: none;
-        border-radius: 50px;
+        border-radius: 8px;
         cursor: pointer;
         transition: all 0.3s ease 0s;
         margin-left: 20px;
+        color: #374151;
     }
 
     header button:hover {
-        background-color: rgba(0,136,169,0.8);
+        background-color: #8bc9de;
     }
 
     .nav__links {
@@ -42,15 +45,16 @@
     }
 
     .nav__links li a:hover {
-        color: #f9f9c6;
+        color: #9b6b9e;
     }
 
     .nav__links .sync {
-        color: #51f0ff;
+        color: #9b6b9e;
+        font-weight: 600;
     }
 
     .logo_title, .logo_title a {
-        color: #f9f9c6;
+        color: #374151;
         font-weight: 600;
         font-size: 26px;
         font-family: "Courier New", Courier, monospace;
@@ -61,21 +65,13 @@
     .info {
         font-size: 15px;
         font-family: "Courier New", Courier, monospace;
-        color: #cbcbcb;
+        color: #6b7280;
     }
 
     #guid {
         font-size: 14px;
-        color: grey;
+        color: #9ca3af;
     }
-
-    /*
-    .header {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        row-gap: 1em;
-    }
-    */
 </style>
 
 <header>
@@ -88,7 +84,6 @@
             <li><a class="sync" href="/sync">sync device</a></li>
         </ul>
     </nav>
-    <!--<a class="cta" href="/sync"><button>sync device</button></a>-->
 </header>
 
 <script>
