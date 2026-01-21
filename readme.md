@@ -103,7 +103,7 @@ docker run --rm --network mynetwork -e PGPASSWORD=remdingo5435434 -v $PWD/db_bac
 ### run app locally in Docker (connects to external database)
 ```
 docker build -t remdingo-app -f Dockerfile.app .
-docker run -d -p 5814:5814 remdingo-app
+docker run -p 5814:5814 -d -e REMDINGO_ENVIRONMENT=development --name remdingo-app remdingo-app
 ```
 App will be running at http://localhost:5814/
 
@@ -112,7 +112,7 @@ App will be running at http://localhost:5814/
 docker stop remdingo-app
 docker rm remdingo-app
 docker build -t remdingo-app -f Dockerfile.app .
-docker run -p 5814:5814 --name remdingo-app remdingo-app
+docker run -p 5814:5814 -d -e REMDINGO_ENVIRONMENT=development --name remdingo-app remdingo-app
 ```
 
 ### build and push to Docker Hub
