@@ -6,6 +6,9 @@ WORKDIR /app
 
 ENV REMDINGO_ENVIRONMENT=production
 
+# Install libpq for SCRAM authentication support
+RUN apt-get update && apt-get install -y libpq-dev && rm -rf /var/lib/apt/lists/*
+
 COPY ./requirements.txt .
 
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
